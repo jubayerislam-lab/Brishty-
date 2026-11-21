@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Happy Birthday My Bow 💖</title>
+  
+  <!-- Romantic Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Great+Vibes&family=Hind+Siliguri:wght@400;600;700&family=Poppins:wght@300;400;600&family=Sacramento&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome for romantic icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Background Canvas for Stars, Fireflies and Floating Petals -->
+  <canvas id="ambientCanvas"></canvas>
+
+  <!-- ==============================================
+       SCREEN 1: PASSWORD LOCK SCREEN
+  ============================================== -->
+  <section id="lockScreen" class="screen active">
+    <div class="lock-card glass-morphism">
+      <div class="heart-lock-icon">
+        <i class="fa-solid fa-lock" id="lockIcon"></i>
+        <div class="lock-glow"></div>
+      </div>
+      
+      <h1 class="lock-title">A Special Surprise For You ❤️</h1>
+      <p class="lock-subtitle">শুধুমাত্র আমার ভালোবাসার মানুষের জন্য...</p>
+      <p class="lock-hint">আমাদের স্পেশাল ডেট বা পাসওয়ার্ড দাও 🔐</p>
+      
+      <form id="passwordForm" onsubmit="event.preventDefault(); verifyPassword();">
+        <div class="input-wrapper">
+          <input 
+            type="text" 
+            id="passwordInput" 
+            placeholder="পাসওয়ার্ড লিখুন..." 
+            autocomplete="off"
+            autofocus
+          />
+          <button type="button" id="clearBtn" onclick="clearInput()">✕</button>
+        </div>
+        
+        <button type="submit" id="unlockBtn" class="glow-button">
+          <span>প্রবেশ করো সোনা</span>
+          <i class="fa-solid fa-heart"></i>
+        </button>
+      </form>
+
+      <div id="errorMessage" class="error-msg"></div>
+
+      <div class="romantic-quote">
+        "কিছু ভালোবাসা ভাষায় প্রকাশ করা যায় না, শুধু হৃদয়ে অনুভব করতে হয়..."
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================================
+       SCREEN 2: FLOATING HEART SCREEN
+  ============================================== -->
+  <section id="heartScreen" class="screen">
+    <div class="floating-heart-container">
+      <div class="sparkle-orbit"></div>
+      <div class="sparkle-orbit orbit-reverse"></div>
+      
+      <!-- The Big Floating Glowing Heart -->
+      <div class="pulsing-heart-wrapper" id="mainHeartBtn">
+        <div class="glow-aura"></div>
+        <div class="heart-shape">
+          <span class="heart-inner-text">Touch Me 💖</span>
+        </div>
+        <div class="pulse-ring ring-1"></div>
+        <div class="pulse-ring ring-2"></div>
+        <div class="pulse-ring ring-3"></div>
+      </div>
+
+      <div class="heart-instruction">
+        <p class="instruction-main">এখানে আলতো করে একটা স্পর্শ করো সোনা...</p>
+        <p class="instruction-sub">Click on the Heart to Unlock My Feelings 🌸</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================================
+       SCREEN 3: THE BLOOMING FLOWER & WISH LETTER
+  ============================================== -->
+  <section id="wishScreen" class="screen">
+    <!-- Top Audio & Controls Bar -->
+    <header class="top-nav-bar">
+      <div class="voice-assistant-badge" id="aiVoiceBadge">
+        <div class="ai-avatar">
+          <i class="fa-solid fa-headset"></i>
+          <span class="online-dot"></span>
+        </div>
+        <div class="ai-info">
+          <span class="ai-name">মিষ্টি AI ভয়েস</span>
+          <span class="ai-status" id="voiceStatusText">পড়ছে...</span>
+        </div>
+        <div class="equalizer" id="equalizer">
+          <span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+
+      <div class="audio-controls">
+        <button id="toggleVoiceBtn" class="circle-btn" title="AI ভয়েস অন/অফ">
+          <i class="fa-solid fa-volume-high" id="voiceIcon"></i>
+        </button>
+        <button id="toggleMusicBtn" class="circle-btn" title="মিউজিক অন/অফ">
+          <i class="fa-solid fa-music" id="musicIcon"></i>
+        </button>
+        <button id="sendLoveBtn" class="circle-btn love-btn" title="ভালোবাসা পাঠাও">
+          <i class="fa-solid fa-heart"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content Layout (Left: Big Blooming Flower Plant, Right: Love Letter) -->
+    <div class="wish-container">
+      
+      <!-- Left Column: Big Blooming Flower Plant -->
+      <div class="flower-stage-column">
+        <div class="flower-container" id="flowerContainer">
+          <canvas id="flowerCanvas"></canvas>
+          <div class="flower-sparkles" id="flowerSparkles"></div>
+          <div class="flower-tag">
+            <span>ভালোবাসার লাল গোলাপ শুধু তোমার জন্য 🌹</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Romantic Letter & Wish Text -->
+      <div class="letter-stage-column">
+        <div class="letter-card glass-morphism">
+          <div class="letter-stamp">
+            <span>FOR MY BOW 🕊️</span>
+          </div>
+
+          <div class="letter-header">
+            <h1 class="main-title">Happy Birthday My Bow 🎂❤️</h1>
+            <p class="sub-greeting">Im Gonna Wish You</p>
+          </div>
+
+          <!-- The Exact User Wishes Styled Elegantly -->
+          <div class="letter-body">
+            
+            <div class="wish-line line-highlight line-1" data-index="1">
+              <span class="bullet">✨</span>
+              <p class="en-text text-beautiful">you are so beuitifull</p>
+            </div>
+
+            <div class="wish-line line-cute line-2" data-index="2">
+              <span class="bullet">🙈</span>
+              <p class="cute-text">banan vul pari na</p>
+            </div>
+
+            <div class="wish-line line-highlight line-3" data-index="3">
+              <span class="bullet">💖</span>
+              <p class="en-text text-love">I Love you ssooooooo sos so so so much</p>
+            </div>
+
+            <div class="wish-line line-bn line-4" data-index="4">
+              <span class="bullet">🌹</span>
+              <p>ami jani na tumi amay valobasho ki na but ami tumay alltime all secend all hour i love you very much</p>
+            </div>
+
+            <div class="wish-line line-bn line-5" data-index="5">
+              <span class="bullet">🥺</span>
+              <p>ajkei tumar birthday but amar kache tk nai somossa jomiye tumar jonno kichu na kichu gift korbo in-sha -allah</p>
+            </div>
+
+            <div class="wish-line line-bn line-6" data-index="6">
+              <span class="bullet">🥻</span>
+              <p>tumar jonno ekta sundor shari jama ar churi dibo tumi amar bow tumar amar shob i love you pakhi</p>
+            </div>
+
+            <div class="wish-line line-footer line-7" data-index="7">
+              <span class="bullet">♾️</span>
+              <p class="footer-love">alltime ❤️</p>
+            </div>
+
+          </div>
+
+          <!-- Interactive Voice Control Bar Inside Letter -->
+          <div class="letter-footer">
+            <div class="voice-actions">
+              <button id="readAgainBtn" class="pill-btn">
+                <i class="fa-solid fa-rotate-right"></i> ভয়েসে আবার শোনো
+              </button>
+              <button id="specialKissBtn" class="pill-btn kiss-btn">
+                <i class="fa-solid fa-kiss-wink-heart"></i> ভালোবাসি পাখি
+              </button>
+            </div>
+            <div class="sign-off">
+              Forever Yours, <br>
+              <span class="signature">তোমার পাগলাটা ❤️</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Floating Hearts Burst Overlay -->
+  <div id="heartBurstContainer"></div>
+
+  <!-- Audio Element for optional direct romantic audio stream or local music -->
+  <audio id="bgMusicTrack" loop preload="auto">
+    <!-- Royalty free romantic acoustic guitar / piano melody -->
+    <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-piano-112199.mp3" type="audio/mpeg">
+  </audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
